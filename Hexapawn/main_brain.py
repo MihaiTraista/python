@@ -36,8 +36,8 @@ def get_move_info(pl, opponent, square):
     for piece in opponent:
         if square == 8-piece:
             isOccupied = True
-    print("move_info: isForwardOneSquare {}, isDiagonalOneSquare {}, reachedEndOfBoard {}, isOccupied {}"
-          .format(isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied))
+    #print("move_info: isForwardOneSquare {}, isDiagonalOneSquare {}, reachedEndOfBoard {}, isOccupied {}"
+          #.format(isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied))
     return [isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied]
 
 
@@ -82,25 +82,47 @@ def remove_select_flag(pl):
 
 
 def get_computer_move_options():
-    options = [[3], [], [5]]
+    options = []
+    for i in range(len(computer)):
+        options.append([])
+        square_options = [computer[i] + 2, computer[i] + 3, computer[i] + 4]
+        for square in square_options:
+            computer[i] += SELECT_FLAG
+            moveInfo = get_move_info(computer, player, square)
+            isForwardOneSquare = moveInfo[0]
+            isDiagonalOneSquare = moveInfo[1]
+            isOccupied = moveInfo[3]
+            if (isForwardOneSquare and not isOccupied) or (isDiagonalOneSquare and isOccupied):
+                options[i].append(square)
+            computer[i] -= SELECT_FLAG
+
     print("options {}".format(options))
     return options
 
 
-def get_computer_choice():
+def select_random_move_choice(options):
     global computer
-    computer[2] += 1000
-    return 5
+    selectedIndex = random.randrange(0, len(options))     #   randrange is start inclusive and stop exclusive
+    if len(options[selectedIndex]) == 0:
+        print("There are no options for randomly selected index {}".format(selectedIndex))
+        return select_random_move_choice(options)
+    computer[selectedIndex] += 1000
+    choice = random.choice(options[selectedIndex])
+    print("Found choice {} at index {}".format(choice, selectedIndex))
+
+    return choice
+
+def get_computer_choice():
+    options = get_computer_move_options()
+    return select_random_move_choice(options)
 
 
 def execute_turn(pl, opponent, square, reverseFlag):
     global turnNumber
-    hasMoved = False
     print("{} turn. player {} computer {}".format("COMPUTER's" if reverseFlag else "PLAYER's", player, computer))
 
     moveInfo = get_move_info(pl, opponent, square)
     hasMoved = move_piece(pl, square, moveInfo)
-
     isDiagonalOneSquare = moveInfo[1]
     reachedEndOfBoard = moveInfo[2]
     isOccupied = moveInfo[3]
