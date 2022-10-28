@@ -84,21 +84,6 @@ def get_computer_move_options():
     return options
 
 
-def execute_computer_turn():
-    global computer, player, turnNumber
-    print("Turn {}, COMPUTER".format(turnNumber))
-    move_options = get_computer_move_options()
-
-    randIndex = random.randint(0, len(computer)-1)
-    computer[randIndex] += SELECT_FLAG
-    randSquare = computer[randIndex] - SELECT_FLAG + 3
-    moveInfo = get_move_info(computer, player, randSquare)
-    print("computer moveInfo: ", moveInfo)
-    move_piece(computer, randSquare, moveInfo)
-    remove_select_flag(computer)
-    print ("computer has moved. POSITIONS: Player: ", player, "computer: ", computer)
-
-
 def get_computer_choice():
     global computer
     computer[2] += 1000
