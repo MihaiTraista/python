@@ -5,10 +5,6 @@ import random
 from hexapawn_globals import *
 import screen_module
 
-player = [0, 1, 2]
-computer = [0, 1, 2]
-turnNumber = 0
-
 
 def get_square_from_click(x, y):
     col = int((x + SCREEN_WIDTH/2) / COLUMN_SIZE)
@@ -54,18 +50,13 @@ def check_if_won(reachedEndOfBoard):
         print("You won!")
 
 
-def move_piece(player1, player2, square, revFlag):
-    moveInfo = get_move_info(player1, player2, square)
+def move_piece(player_to_move, square, moveInfo):
     isForwardOneSquare = moveInfo[0]
     isDiagonalOneSquare = moveInfo[1]
-    reachedEndOfBoard = moveInfo[2]
     isOccupied = moveInfo[3]
 
     if (isForwardOneSquare and not isOccupied) or (isDiagonalOneSquare and isOccupied):
-        player1[player1.index(max(player1))] = square
-        if(isDiagonalOneSquare and isOccupied):
-            take_opponents_piece(player2, square, revFlag)
-        check_if_won(reachedEndOfBoard)
+        player_to_move[player_to_move.index(max(player_to_move))] = square
         return True
     else:
         print("You can't move here")
@@ -87,42 +78,77 @@ def remove_select_flag(pl):
             pl[i] -= SELECT_FLAG
 
 
+def get_computer_move_options():
+    options = [[3], [], [5]]
+    print("options {}".format(options))
+    return options
+
+
 def execute_computer_turn():
     global computer, player, turnNumber
-    print("computer's turn, NUMBER", turnNumber)
+    print("Turn {}, COMPUTER".format(turnNumber))
+    move_options = get_computer_move_options()
+
     randIndex = random.randint(0, len(computer)-1)
     computer[randIndex] += SELECT_FLAG
     randSquare = computer[randIndex] - SELECT_FLAG + 3
-    #   moveInfo = get_move_info(computer, player, randSquare)
-    #   print("computer moveInfo: ", moveInfo)
-    move_piece(computer, player, randSquare, True)
+    moveInfo = get_move_info(computer, player, randSquare)
+    print("computer moveInfo: ", moveInfo)
+    move_piece(computer, randSquare, moveInfo)
     remove_select_flag(computer)
     print ("computer has moved. POSITIONS: Player: ", player, "computer: ", computer)
 
 
-def execute_player_turn(x, y):
-    global player, computer, turnNumber
-    print("player's turn, NUMBER", turnNumber)
-    square = get_square_from_click(x, y)
-    isMoveClick = is_this_click_for_move(square)
-    if isMoveClick:
-        playerHasMoved = move_piece(player, computer, square, False)
-        remove_select_flag(player)
-        print("player has moved. POSITIONS: Player: ", player, "computer: ", computer)
-        if playerHasMoved:
-            execute_computer_turn()
-        turnNumber += 1
+def get_computer_choice():
+    global computer
+    computer[2] += 1000
+    return 5
+
+
+def execute_turn(pl, opponent, square, reverseFlag):
+    global turnNumber
+    hasMoved = False
+    print("Turn {}, {}".format(turnNumber, "COMPUTER" if reverseFlag else "PLAYER"))
+
+    moveInfo = get_move_info(pl, opponent, square)
+    hasMoved = move_piece(pl, square, moveInfo)
+
+    isDiagonalOneSquare = moveInfo[1]
+    reachedEndOfBoard = moveInfo[2]
+    isOccupied = moveInfo[3]
+
+    if(isDiagonalOneSquare and isOccupied):
+        take_opponents_piece(opponent, square, reverseFlag)
+    check_if_won(reachedEndOfBoard)
+
+    remove_select_flag(pl)
+    return hasMoved
+
+
+def turn_handler(x, y):
+    global turnNumber
+    print("TURN NO {} _______________________".format(turnNumber))
+    clicked_square = get_square_from_click(x, y)
+    isMoveClick = is_this_click_for_move(clicked_square)
+
+    if not isMoveClick:
+        select_piece(clicked_square)
+        print("Player has selected. POSITIONS: player", player, "computer: ", computer)
     else:
-        select_piece(square)
-        print("player has selected. POSITIONS: Player", player, "computer: ", computer)
+        playerHasMoved = execute_turn(player, computer, clicked_square, False)
+        print("Player has moved. POSITIONS: player: ", player, "computer: ", computer)
+        if playerHasMoved:
+            computer_square = get_computer_choice()     # this has the side effect of selecting a computer piece (offset by SELECT_FLAG)
+            execute_turn(computer, player, computer_square, True)
+            print("Computer has moved. POSITIONS: player: ", player, "computer: ", computer)
+            turnNumber += 1
 
-    screen_module.update(player, computer)
-
+    screen_module.update()
 
 def main():
-    screen_module.update(player, computer)
+    screen_module.update()
     screen.listen()
-    screen.onclick(execute_player_turn)
+    screen.onclick(turn_handler)
 
 
 main()

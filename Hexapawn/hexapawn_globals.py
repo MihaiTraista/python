@@ -12,6 +12,10 @@ SCREEN_LEFT = (SCREEN_WIDTH/2) * -1
 SCREEN_RIGHT = SCREEN_WIDTH/2
 SELECT_FLAG = 1000
 
+player = [0, 1, 2]
+computer = [0, 1, 2]
+turnNumber = 1
+
 turtle.colormode(255)
 screen = turtle.Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)

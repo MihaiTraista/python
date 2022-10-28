@@ -18,7 +18,7 @@ def draw_grid():
         draw_line(t, offset_coord(ROW_SIZE * i), offset_coord(0), SCREEN_WIDTH, 90)
 
 
-def draw_pieces(player, computer):
+def draw_pieces():
     t.penup()
     for turn in range(2):
         pawnList = player if turn == 0 else computer
@@ -41,7 +41,7 @@ def draw_pieces(player, computer):
             t.end_fill()
 
 
-def update(player, computer):
+def update():
     t.clear()
     draw_grid()
-    draw_pieces(player, computer)
+    draw_pieces()
