@@ -24,8 +24,8 @@ def is_this_click_for_move(square):
         return False
 
 
-def get_move_info(player1, player2, square):
-    selected = player1[player1.index(max(player1))] - SELECT_FLAG
+def get_move_info(pl, opponent, square):
+    selected = pl[pl.index(max(pl))] - SELECT_FLAG
     isForwardOneSquare = True if square == selected + 3 else False
     isDiagonalOneSquare = (True if
         (selected % COLUMNS == 1 and (square == selected + 4 or square == selected + 2)) or
@@ -33,21 +33,24 @@ def get_move_info(player1, player2, square):
         (selected % COLUMNS == 2 and square == selected + 2) else False)
     reachedEndOfBoard = True if square > 5 else False
     isOccupied = False
-    for piece in player2:
+    for piece in opponent:
         if square == 8-piece:
             isOccupied = True
+    print("move_info: isForwardOneSquare {}, isDiagonalOneSquare {}, reachedEndOfBoard {}, isOccupied {}"
+          .format(isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied))
     return [isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied]
 
 
-def take_opponents_piece(opponent, square, revFlag):
-    revSubtractValue = -8 if revFlag else 0
-    opponent.pop(opponent.index(square+revSubtractValue))
-    print("opponent pieces: ", opponent)
+def take_opponents_piece(opponent, square):
+    opponent.pop(opponent.index(8 - square))
 
 
 def check_if_won(reachedEndOfBoard):
     if reachedEndOfBoard or len(computer) == 0:
+        screen_module.update()
         print("You won!")
+        input("Press Q to exit")
+        exit()
 
 
 def move_piece(player_to_move, square, moveInfo):
@@ -93,7 +96,7 @@ def get_computer_choice():
 def execute_turn(pl, opponent, square, reverseFlag):
     global turnNumber
     hasMoved = False
-    print("Turn {}, {}".format(turnNumber, "COMPUTER" if reverseFlag else "PLAYER"))
+    print("{} turn. player {} computer {}".format("COMPUTER's" if reverseFlag else "PLAYER's", player, computer))
 
     moveInfo = get_move_info(pl, opponent, square)
     hasMoved = move_piece(pl, square, moveInfo)
@@ -103,8 +106,10 @@ def execute_turn(pl, opponent, square, reverseFlag):
     isOccupied = moveInfo[3]
 
     if(isDiagonalOneSquare and isOccupied):
-        take_opponents_piece(opponent, square, reverseFlag)
-    check_if_won(reachedEndOfBoard)
+        take_opponents_piece(opponent, square)
+
+    if hasMoved:
+        check_if_won(reachedEndOfBoard)
 
     remove_select_flag(pl)
     return hasMoved
