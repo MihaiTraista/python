@@ -1,4 +1,3 @@
-# doesn't work last tried 6Sep. I need to watch the Khan academy videos
 
 import turtle
 import math

@@ -13,7 +13,7 @@ t.penup()
 t.shape("turtle")
 t.color("orange")
 t.hideturtle()
-turtle.tracer(20)
+turtle.tracer(12)
 
 levels = 2
 

@@ -63,7 +63,7 @@ def nextStr(inputStr):
 
 #   MAIN CODE
 
-rule = makeRule(57)     #   try 30, 56, 23, 2, 5, 88, 91, 12, 1, 22!, 57!, 214!
+rule = makeRule(22)     #   try 30, 56, 23, 2, 5, 88, 91, 12, 1, 22!, 57!, 214!
 for i in range(50):
     currentStr = nextStr(currentStr)
     draw(i, currentStr)
