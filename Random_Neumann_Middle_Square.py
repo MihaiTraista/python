@@ -23,18 +23,18 @@ def rotate(l, n):
     return l[n:] + l[:n]
 
 
-def middleSquare(newSeed):
-    squared = newSeed * newSeed
-    l = [int(digit) for digit in str(squared)]
-    for i in range(len(l), 8):
-        l.append(0)
+def middle_square(new_seed):
+    squared = new_seed * new_seed
+    n = [int(digit) for digit in str(squared)]
+    for i in range(len(n), 8):
+        n.append(0)
         if i % 2 == 0:
-            l = rotate(l, -1)
+            n = rotate(n, -1)
 #    print("squared = ", squared, "; l = ", l)
-    l = l[2:]
-    l = l[:4]
-    string = ''.join(str(e) for e in l)
-    return(int(string))
+    n = n[2:]
+    n = n[:4]
+    string = ''.join(str(e) for e in n)
+    return int(string)
 
 
 seed = 122
@@ -46,7 +46,7 @@ t.goto(-200, -200)
 t.pendown()
 
 for i in range(100000):
-    seed = middleSquare(seed)
+    seed = middle_square(seed)
     counter += seed
     if i % 50 == 0:
         print("i = ", i, "; seed = ", seed)
