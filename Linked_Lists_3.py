@@ -60,18 +60,9 @@ def get_cycle_v2(head):
         slow = slow.next
         fast = fast.next.next
         if slow == fast:
-            break
+            return slow.next
     else:
         return None
-
-    slow = head
-
-    # increment both pointers at the same pace until they meet again
-    while slow != fast:
-        slow = slow.next
-        fast = fast.next
-
-    return slow
 
 
 my_list = LinkedList()
