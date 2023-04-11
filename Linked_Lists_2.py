@@ -28,13 +28,14 @@ class LinkedList:
             current_node = current_node.next
         print()
 
-    def rearrange(self):
+    def interleave(self):
+        if self.head is None or self.head.next is None:
+            return
         fast = self.head
         slow = self.head
         while fast.next.next:
             fast = fast.next.next
             slow = slow.next
-            # print(f"fast {fast.data}, fast.next {fast.next.data}, slow {slow.data}")
 
         second_half = slow.next
         first_half = self.head
@@ -43,25 +44,20 @@ class LinkedList:
         while second_half:
             first_half_next = first_half.next
             second_half_next = second_half.next
-
             first_half.next = second_half
             second_half.next = first_half_next
             first_half = first_half_next
             second_half = second_half_next
-            # print(f"first_half_next {first_half_next.data}, second_half_next {second_half_next.data}")
 
 
 my_list = LinkedList()
 
-my_list.append('a1')
-my_list.append('a2')
-my_list.append('a3')
-my_list.append('a4')
-my_list.append('b1')
-my_list.append('b2')
-my_list.append('b3')
-my_list.append('b4')
+values = ['a1', 'a2', 'a3', 'a4', 'b1', 'b2', 'b3', 'b4']
+for value in values:
+    my_list.append(value)
 
+print("Original List")
 my_list.print_list()
-my_list.rearrange()
+my_list.interleave()
+print("Interleaved List")
 my_list.print_list()
