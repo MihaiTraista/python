@@ -3,24 +3,24 @@
 # advantage of being simple to implement and requiring only a small amount of additional memory.
 
 def selection_sort(orig_values):
-    values = orig_values[:]
-    for i in range(len(values)):
-        unsorted = values[i:]
+    sorted_values = orig_values[:]
+    for i in range(len(sorted_values)):
+        unsorted = sorted_values[i:]
         min_val = min(unsorted)
-        min_index = values.index(min_val)
-        values[min_index] = values[i]
-        values[i] = min_val
+        min_index = sorted_values.index(min_val)
+        sorted_values[min_index] = sorted_values[i]
+        sorted_values[i] = min_val
         # print(values)
 
-    return values
+    return sorted_values
 
 
+#   O(n^2) in the worst case.
 def bubble_sort(orig_values):
     values = orig_values[:]
     while True:
         has_swapped = False
         for i in range(len(values) - 1):
-            # print("started iteration with ", values)
             first_val = values[i]
             second_val = values[i + 1]
             # print(first_val, second_val)
@@ -36,19 +36,24 @@ def bubble_sort(orig_values):
     return values
 
 
+#   also O(n^2) in the worst case.
 def insertion_sort(values):
     sorted_list = [values[0]]
     for i in range(1, len(values)):
         current_val = values[i]
-        index = len(sorted_list) - 1
-        while index >= 0 and sorted_list[index] > current_val:
-            index -= 1
-        sorted_list.insert(index + 1, current_val)
+        last_index = len(sorted_list) - 1
+        print(f"i {i}, current_val {current_val}, last_index {last_index}, sorted_list, {sorted_list}")
+        for k in range(last_index, -1, -1):
+            if current_val > sorted_list[k]:
+                sorted_list.insert(k + 1, current_val)
+                break
+            elif k == 0:
+                sorted_list.insert(0, current_val)
 
     return sorted_list
 
 
 numbers = [5, 1, 9, 2, 8]
-print(f"Selection Sort {selection_sort(numbers)}")
-print(f"Bubble Sort {bubble_sort(numbers)}")
+# print(f"Selection Sort {selection_sort(numbers)}")
+# print(f"Bubble Sort {bubble_sort(numbers)}")
 print(f"Insertion Sort {insertion_sort(numbers)}")
