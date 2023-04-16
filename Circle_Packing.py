@@ -8,6 +8,7 @@ canvas = pygame.display.set_mode((800, 800))
 
 clock = pygame.time.Clock()
 
+
 def get_distance_between_two_points(p1, p2):
     #   the square root of the sum of the squares of the other two sides
     x1, y1 = p1

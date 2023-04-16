@@ -81,5 +81,6 @@ for value in values:
     my_list.append(value)
 
 my_list.print_list()
+
 print(f"get_length_recursive {my_list.get_length_recursive(my_list.head)}")
 print(f"isPalindrome {is_palindrome(my_list)}")
