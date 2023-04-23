@@ -66,8 +66,8 @@ def arc(p1, p2, c):
     steps = int(radius / 4)
     if steps < 10:
         steps = 10
-    for i in range(steps):
-        angle = angle_start + (span / steps) * (i+1)
+    for k in range(steps):
+        angle = angle_start + (span / steps) * (k+1)
         x = math.sin(angle) * radius + c[0]
         y = math.cos(angle) * radius + c[1]
         goto(x, y)
