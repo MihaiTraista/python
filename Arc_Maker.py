@@ -72,3 +72,12 @@ def arc(p1, p2, c):
         y = math.cos(angle) * radius + c[1]
         goto(x, y)
 
+
+for i in range(10):
+    p1 = [0, 200]
+    p2 = [0, -200]
+    c = [i * 10, 0]
+    arc(p1, p2, c)
+
+
+done()
