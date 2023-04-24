@@ -1,11 +1,11 @@
 class Graph:
-    def __init__(self, gdict = None):
-        if gdict is None:
-            gdict = {}
-        self.gdict = gdict
+    def __init__(self, graph_dict = None):
+        if graph_dict is None:
+            graph_dict = {}
+        self.graph_dict = graph_dict
 
     def get_vertices(self):
-        return list(self.gdict.keys())
+        return list(self.graph_dict.keys())
 
     def get_edges(self):
         return self.find_edges()
@@ -13,20 +13,20 @@ class Graph:
     def add_edge(self, edge):
         edge = set(edge)
         (vertex1, vertex2) = tuple(edge)
-        if vertex1 in self.gdict:
-            self.gdict[vertex1].append(vertex2)
+        if vertex1 in self.graph_dict:
+            self.graph_dict[vertex1].append(vertex2)
         else:
-            self.gdict[vertex1] = [vertex2]
+            self.graph_dict[vertex1] = [vertex2]
 
 # List the edge names
     def find_edges(self):
-        edgename = []
-        for vrtx in self.gdict:
-            for nxtvrtx in self.gdict[vrtx]:
-                if {nxtvrtx, vrtx} not in edgename:
-                    edgename.append({vrtx, nxtvrtx})
+        edges = []
+        for vertex in self.graph_dict:
+            for next_vertex in self.graph_dict[vertex]:
+                if (next_vertex, vertex) not in edges:
+                    edges.append((vertex, next_vertex))
 
-        return edgename
+        return edges
 
 
 graph_elements = {
