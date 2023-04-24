@@ -26,6 +26,8 @@ class Graph:
         for edge in graph_edges:
             self.adjacency_list[edge[0]].add((edge[1], edge[2]))
 
+    def shortest_path(self, start_node, end_node):
+        pass
 
 
 g = Graph(edges)
