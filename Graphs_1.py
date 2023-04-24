@@ -21,10 +21,10 @@ class Graph:
 # List the edge names
     def find_edges(self):
         edges = []
-        for vertex in self.graph_dict:
-            for next_vertex in self.graph_dict[vertex]:
-                if (next_vertex, vertex) not in edges:
-                    edges.append((vertex, next_vertex))
+        for start in self.graph_dict:
+            for end in self.graph_dict[start]:
+                if (end, start) not in edges:
+                    edges.append((start, end))
 
         return edges
 
@@ -39,6 +39,5 @@ graph_elements = {
 
 g = Graph(graph_elements)
 g.add_edge({"a", "e"})
-g.add_edge({"a", "c"})
 print(g.get_vertices())
 print(g.get_edges())
