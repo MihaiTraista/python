@@ -1,5 +1,7 @@
 #   https://github.com/dmahugh/dijkstra-algorithm/blob/master/dijkstra_algorithm.py
 
+from collections import deque
+
 edges = [
     ["A", "B", 5],
     ["A", "C", 3],
@@ -60,7 +62,7 @@ class Graph:
             # to the neighbor via current_node is shorter than the distance we
             # currently have for that node. If it is, update the neighbor's values
             # for distance_from_start and previous_node.
-            for neighbor, distance in self.adjacency_list[current_node]:
+            for neighbor, distance in self.graph_dict[current_node]:
                 new_path = distance_from_start[current_node] + distance
                 if new_path < distance_from_start[neighbor]:
                     distance_from_start[neighbor] = new_path
@@ -71,7 +73,7 @@ class Graph:
 
         # To build the path to be returned, we iterate through the nodes from
         # end_node back to start_node. Note the use of a deque, which can
-        # appendleft with O(1) performance.
+        # append left with O(1) performance.
         path = deque()
         current_node = end_node
         while previous_node[current_node] is not None:
@@ -81,6 +83,8 @@ class Graph:
 
         return path, distance_from_start[end_node]
 
+
 g = Graph(edges)
 
 print(g.graph_dict["C"])
+print(g.shortest_path("B", "D"))
