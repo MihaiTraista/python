@@ -11,3 +11,7 @@ for file_name in os.listdir(dir_path):
         file_stat = os.stat(file_path)
         create_time = file_stat.st_mtime  # Unix format
         create_date = datetime.datetime.fromtimestamp(create_time).strftime('%Y-%m-%d')  # date string
+        new_file_name = f"{create_date}-{file_name.split('.')[0]}.m4a"  # Create the new file name
+        new_file_path = os.path.join(dir_path, new_file_name)
+        os.rename(file_path, new_file_path)  # Rename the file
+        
