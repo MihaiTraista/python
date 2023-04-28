@@ -49,4 +49,29 @@ def get_angle_of_line(p1, p2):
     return angle
 
 
+def arc(p1, p2, c):
+    radius = get_distance_between_two_points(p1, c)
+    angle_start = get_angle_of_line(c, p1)
+    angle_end = get_angle_of_line(c, p2)
+    span = angle_end - angle_start
+    # print(f"angle_start {math.degrees(angle_start)}, "
+    #       f"angle_end {math.degrees(angle_end)}, "
+    #       f"span {math.degrees(span)}, "
+    #       f"radius {radius}")
+    penup()
+    # print("x, y ", math.sin(angle_start) * radius + c[0], math.cos(angle_start) * radius + c[1])
+    goto(math.sin(angle_start) * radius + c[0], math.cos(angle_start) * radius + c[1])
+    dot(10)
+    pendown()
+
+    steps = int(radius / 4)
+    if steps < 10:
+        steps = 10
+    for i in range(steps):
+        angle = angle_start + (span / steps) * (i+1)
+        x = math.sin(angle) * radius + c[0]
+        y = math.cos(angle) * radius + c[1]
+        goto(x, y)
+
+
 
