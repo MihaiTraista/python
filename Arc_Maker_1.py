@@ -74,4 +74,12 @@ def arc(p1, p2, c):
         goto(x, y)
 
 
+for i in range(200):
+    p1 = [random.randint(-200, 200), random.randint(-200, 200)]
+    p2 = [random.randint(-200, 200), random.randint(-200, 200)]
+    c = [random.randint(-200, 200), random.randint(-200, 200)]
+    arc(p1, p2, c)
+
+
+done()
 
