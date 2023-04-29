@@ -1,3 +1,11 @@
+"""
+
+Based on Vsauce2 - The Game That Learns
+https://www.youtube.com/watch?v=sw7UAZNgGg8
+
+"""
+
+
 import random
 from hexapawn_globals import *
 from Matchbox import *
@@ -24,34 +32,34 @@ def is_this_click_for_move(square):
 
 def get_move_info(pl, opponent, square):
     selected = pl[pl.index(max(pl))] - SELECT_FLAG
-    isForwardOneSquare = True if square == selected + 3 else False
-    isDiagonalOneSquare = (True if
+    is_forward_one_square = True if square == selected + 3 else False
+    is_diagonal_one_square = (True if
         (selected % COLUMNS == 1 and (square == selected + 4 or square == selected + 2)) or
         (selected % COLUMNS == 0 and square == selected + 4) or
         (selected % COLUMNS == 2 and square == selected + 2) else False)
-    reachedEndOfBoard = True if square > 5 else False
-    isOccupied = False
+    reached_end_of_board = True if square > 5 else False
+    is_occupied = False
     for piece in opponent:
         if square == 8-piece:
-            isOccupied = True
-    #print("move_info: isForwardOneSquare {}, isDiagonalOneSquare {}, reachedEndOfBoard {}, isOccupied {}"
-          #.format(isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied))
-    return [isForwardOneSquare, isDiagonalOneSquare, reachedEndOfBoard, isOccupied]
+            is_occupied = True
+    #print("move_info: is_forward_one_square {}, is_diagonal_one_square {}, reached_end_of_board {}, is_occupied {}"
+          #.format(is_forward_one_square, is_diagonal_one_square, reached_end_of_board, is_occupied))
+    return [is_forward_one_square, is_diagonal_one_square, reached_end_of_board, is_occupied]
 
 
 def take_opponents_piece(opponent, square):
     opponent.pop(opponent.index(8 - square))
 
 
-def check_if_won(reachedEndOfBoard, who_won):
-    if reachedEndOfBoard or len(computer) == 0:
+def check_if_won(reached_end_of_board, who_won):
+    if reached_end_of_board or len(computer) == 0:
         screen_module.update()
         print("{} won!".format(who_won))
         turtle.exitonclick()
         exit()
 
 
-def winWithNoOptions(who_won):
+def win_with_no_options(who_won):
     screen_module.update()
     print("{} won with no options!".format(who_won))
     turtle.exitonclick()
@@ -59,11 +67,11 @@ def winWithNoOptions(who_won):
 
 
 def move_piece(player_to_move, square, moveInfo):
-    isForwardOneSquare = moveInfo[0]
-    isDiagonalOneSquare = moveInfo[1]
-    isOccupied = moveInfo[3]
+    is_forward_one_square = moveInfo[0]
+    is_diagonal_one_square = moveInfo[1]
+    is_occupied = moveInfo[3]
 
-    if (isForwardOneSquare and not isOccupied) or (isDiagonalOneSquare and isOccupied):
+    if (is_forward_one_square and not is_occupied) or (is_diagonal_one_square and is_occupied):
         player_to_move[player_to_move.index(max(player_to_move))] = square
         return True
     else:
@@ -124,7 +132,7 @@ def select_random_move_choice(options):
 def get_random_computer_choice():
     options = get_move_options(computer, player)
     if options is None:
-        winWithNoOptions("player")
+        win_with_no_options("player")
     return select_random_move_choice(options)
 
 
@@ -171,7 +179,7 @@ def turn_handler(x, y):
             turnNumber += 1
             options = get_move_options(player, computer)
             if options is None:
-                winWithNoOptions("computer")
+                win_with_no_options("computer")
 
 
     screen_module.update()
