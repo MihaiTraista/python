@@ -1,10 +1,7 @@
 """
-
 Based on Vsauce2 - The Game That Learns
 https://www.youtube.com/watch?v=sw7UAZNgGg8
-
 """
-
 
 import random
 from hexapawn_globals import *
@@ -129,6 +126,7 @@ def select_random_move_choice(options):
 
     return choice
 
+
 def get_random_computer_choice():
     options = get_move_options(computer, player)
     if options is None:
@@ -137,7 +135,7 @@ def get_random_computer_choice():
 
 
 def execute_turn(pl, opponent, square, reverseFlag):
-    global turnNumber
+    global turn_number
     print("{} turn. player {} computer {}".format("COMPUTER's" if reverseFlag else "PLAYER's", player, computer))
 
     moveInfo = get_move_info(pl, opponent, square)
@@ -157,32 +155,35 @@ def execute_turn(pl, opponent, square, reverseFlag):
 
 
 def turn_handler(x, y):
-    global turnNumber
+    global turn_number
     clicked_square = get_square_from_click(x, y)
-    isMoveClick = is_this_click_for_move(clicked_square)
+    is_move_click = is_this_click_for_move(clicked_square)
 
-    if not isMoveClick:
+    if not is_move_click:
         select_piece(clicked_square)
         print("Player has selected. POSITIONS: player", player, "computer: ", computer)
     else:
-        print("START TURN {} => player {}, computer {}".format(turnNumber, player, computer))
-        playerHasMoved = execute_turn(player, computer, clicked_square, False)
+        print("START TURN {} => player {}, computer {}".format(turn_number, player, computer))
+        player_has_moved = execute_turn(player, computer, clicked_square, False)
         print("Player has moved. POSITIONS: player: ", player, "computer: ", computer)
-        turnNumber += 1
+        turn_number += 1
 
-        if playerHasMoved:
-            print("START TURN {} => player {}, computer {}".format(turnNumber, player, computer))
-            #computer_square = get_random_computer_choice()     # this has the side effect of selecting a computer piece (offset by SELECT_FLAG)
+        if player_has_moved:
+            print("START TURN {} => player {}, computer {}".format(turn_number, player, computer))
+            # computer_square = get_random_computer_choice()
+
+            # calling get_computer_choice_from_matchbox() has the side effect of offsetting a computer pawn!
             computer_square = get_computer_choice_from_matchbox()
+
             execute_turn(computer, player, computer_square, True)
             print("Computer has moved. POSITIONS: player: ", player, "computer: ", computer)
-            turnNumber += 1
+            turn_number += 1
             options = get_move_options(player, computer)
             if options is None:
                 win_with_no_options("computer")
 
-
     screen_module.update()
+
 
 def main():
     screen_module.update()

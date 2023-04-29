@@ -14,7 +14,7 @@ SELECT_FLAG = 1000
 
 player = [0, 1, 2]
 computer = [0, 1, 2]
-turnNumber = 1
+turn_number = 1
 
 turtle.colormode(255)
 screen = turtle.Screen()
