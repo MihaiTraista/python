@@ -22,7 +22,8 @@ matchboxes = [
     Matchbox(2, [1, 2, 3], [Bead("green", 1, 1, 5), Bead("blue", 1, 1, 4), Bead("purple", 1, 0, 3)]),
     Matchbox(2, [0, 4, 2], [Bead("green", 1, 2, 3), Bead("blue", 1, 2, 2)]),
     Matchbox(4, [0, 4, 5], [Bead("green", 1, 0, 4), Bead("purple", 1, 1, 3)]),
-    #   fill with matchboxes
+    Matchbox(4, [0, 5], [Bead("green", 1, 1, 3), Bead("purple", 1, 4, 7), Bead("blue", 1, 4, 8)]),
+    #   fill with matchboxes https://www.youtube.com/watch?v=sw7UAZNgGg8
 ]
 
 
