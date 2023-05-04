@@ -26,4 +26,15 @@ def drawStar(size, fillFlag):
   else:
     tommy.penup()
 
+tommy.goto(-100, 50)
+for i in range(5):
+  tommy.pendown()
+  tommy.forward(200)
+  for ii in range(5):
+    tommy.forward(50)
+    drawStar(20, True)
+    tommy.right(144)
+  tommy.right(144)
+  tommy.penup()
 
+tommy.goto(-200,-200)
