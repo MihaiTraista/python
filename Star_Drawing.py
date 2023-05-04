@@ -12,29 +12,31 @@ tommy.penup()
 tommy.color("orange")
 screen.bgcolor(0, 40, 50)
 
-# define function
-def drawStar(size, fillFlag):
-  if fillFlag:
-    tommy.begin_fill()
-  else:
-    tommy.pendown()
-  for i in range(5):
-    tommy.forward(size)
-    tommy.right(144)
-  if fillFlag:
-    tommy.end_fill()
-  else:
-    tommy.penup()
+
+def draw_star(size, fillFlag):
+    if fillFlag:
+        tommy.begin_fill()
+    else:
+        tommy.pendown()
+    for i in range(5):
+        tommy.forward(size)
+        tommy.right(144)
+    if fillFlag:
+        tommy.end_fill()
+    else:
+        tommy.penup()
+
 
 tommy.goto(-100, 50)
 for i in range(5):
-  tommy.pendown()
-  tommy.forward(200)
-  for ii in range(5):
-    tommy.forward(50)
-    drawStar(20, True)
-    tommy.right(144)
-  tommy.right(144)
-  tommy.penup()
+    tommy.pendown()
+    tommy.forward(200)
+    for ii in range(5):
+        tommy.forward(50)
+        draw_star(20, True)
+        tommy.right(144)
+        tommy.right(144)
+        tommy.penup()
 
-tommy.goto(-200,-200)
+
+tommy.goto(-200, -200)
