@@ -27,15 +27,3 @@ def draw_star(size, fillFlag):
         tommy.penup()
 
 
-tommy.goto(-100, 50)
-for i in range(5):
-    tommy.pendown()
-    tommy.forward(200)
-    for ii in range(5):
-        tommy.forward(50)
-        draw_star(20, True)
-        tommy.right(144)
-        tommy.right(144)
-        tommy.penup()
-
-
