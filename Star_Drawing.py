@@ -39,4 +39,3 @@ for i in range(5):
         tommy.penup()
 
 
-tommy.goto(-200, -200)
