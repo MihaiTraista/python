@@ -1,4 +1,4 @@
-# take a pixel art PNG of 32x32 and magnify it
+# read a 32x32 PNG and write a magnified version of it
 
 from PIL import Image
 
@@ -37,4 +37,4 @@ def magnify(times):
 
 # stretch_wide()
 magnify(20)
-output_image.save("/Users/mihaitraista/Desktop/6464.png")
+output_image.save("/Users/username/Desktop/6464.png")
