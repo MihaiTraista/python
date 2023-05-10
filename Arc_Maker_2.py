@@ -6,9 +6,9 @@ bgcolor("black")
 color("red")
 dot(5)
 color("orange")
-width(4)
+width(1)
 speed(0)
-#tracer(10)
+tracer(10)
 
 
 def get_distance_between_two_points(p1, p2):
@@ -73,7 +73,7 @@ def arc(p1, p2, c):
         goto(x, y)
 
 
-for i in range(10):
+for i in range(60):
     p1 = [0, 200]
     p2 = [0, -200]
     c = [i * 10, 0]
