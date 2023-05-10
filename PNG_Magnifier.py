@@ -21,6 +21,20 @@ def stretch_wide():
             output_image.putpixel(output_coord, color)
 
 
-stretch_wide()
-# magnify(20)
+def magnify(times):
+    global output_image
+    output_image = Image.new("RGB", (32 * times, 32 * times), "white")
+    for x in range(32):
+        for y in range(32):
+            input_coord = (x, y)
+            color = input_image.getpixel(input_coord)
+            # print(color)
+            for x_offset in range(times):
+                for y_offset in range(times):
+                    output_coord = (x * times + x_offset, y * times + y_offset)
+                    output_image.putpixel(output_coord, color)
+
+
+# stretch_wide()
+magnify(20)
 output_image.save("/Users/mihaitraista/Desktop/6464.png")
