@@ -7,7 +7,6 @@ def merge_sort(unsorted):
     right = unsorted[m:]
 
 
-
     return unsorted
 
 # print(merge_sort(arr))

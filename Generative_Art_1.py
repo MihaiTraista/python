@@ -24,8 +24,8 @@ def draw_jittery_line(exponent):
         angle = math.pow(angle, exponent)
         angle *= 360
         angle = (angle + offset) % 360
-        x += 1 * math.cos(math.radians(angle))
-        y += 1 * math.sin(math.radians(angle))
+        x += 1 * math.sin(math.radians(angle))
+        y += 1 * math.cos(math.radians(angle))
         new_img.putpixel((int(x), int(y)), color)
 
 

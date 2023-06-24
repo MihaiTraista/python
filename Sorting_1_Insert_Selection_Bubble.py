@@ -1,13 +1,14 @@
 # The selection sort algorithm has a time complexity of O(n^2) in the worst case and O(n^2) in the average case,
 # making it less efficient than other sorting algorithms such as quicksort or merge sort. However, it has the
 # advantage of being simple to implement and requiring only a small amount of additional memory.
+import random
 
 def selection_sort(orig_values):
     sorted_values = orig_values[:]
     for i in range(len(sorted_values)):
         unsorted = sorted_values[i:]
         min_val = min(unsorted)
-        min_index = sorted_values.index(min_val)
+        min_index = sorted_values.index(min_val, i)
         sorted_values[min_index] = sorted_values[i]
         sorted_values[i] = min_val
         # print(values)
@@ -53,7 +54,10 @@ def insertion_sort(values):
     return sorted_list
 
 
-numbers = [5, 1, 9, 2, 8]
-# print(f"Selection Sort {selection_sort(numbers)}")
+# numbers = [5, 1, 9, 2, 8]
+# numbers = [random.randint(1, 20) for x in range(10)]
+numbers = [3, 9, 14, 19, 2, 19, 11, 13, 11, 19]
+print(f"initial list {numbers}")
+print(f"Selection Sort {selection_sort(numbers)}")
 # print(f"Bubble Sort {bubble_sort(numbers)}")
-print(f"Insertion Sort {insertion_sort(numbers)}")
+# print(f"Insertion Sort {insertion_sort(numbers)}")
